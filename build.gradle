@@ -2,6 +2,7 @@ plugins {
     id 'org.springframework.boot' version '2.6.6'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
+    id 'org.openapi.generator' version '5.2.1'
 }
 
 group = 'ru.ssv'
@@ -20,6 +21,8 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'javax.validation:validation-api:2.0.1.Final'
+    implementation 'io.springfox:springfox-swagger2:3.0.0'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     annotationProcessor 'org.projectlombok:lombok'
@@ -29,3 +32,22 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
 }
+
+openApiGenerate {
+    generatorName = "spring"
+    inputSpec = "$projectDir/src/main/resources/openapi/person/person.yaml"
+    outputDir = "$projectDir"
+    apiPackage = "ru.ssv.delphin.api.person"
+    modelPackage = "ru.ssv.delphin.api.person.model"
+    configOptions = [
+            interfaceOnly: "true",
+            openApiNullable: "false",
+            skipDefaultInterface: "true"
+    ]
+    globalProperties = [
+            apis: "",
+            models: ""
+    ]
+}
+compileJava.dependsOn tasks.openApiGenerate
+processResources.dependsOn tasks.openApiGenerate
