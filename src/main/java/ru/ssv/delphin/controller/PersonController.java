@@ -21,7 +21,7 @@ public class PersonController implements PersonsApi {
 
     @Override
     public ResponseEntity<PersonResponse> getById(String personId) {
-        var person = new Person().id("id").name("name");
+        var person = new Person().id(personId).name("name");
         var personsResponse = new PersonResponse().person(person);
         return ResponseEntity.status(HttpStatus.OK).body(personsResponse);
     }
