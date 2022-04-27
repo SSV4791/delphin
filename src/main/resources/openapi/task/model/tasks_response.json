@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "title": "Список задач пользователя",
+  "properties": {
+    "personId": {
+      "type": "string",
+      "title": "Идентификатор пользователя"
+    },
+    "tasks": {
+      "type": "array",
+      "items": {
+        "$ref": "task.json"
+      }
+    }
+  }
+}

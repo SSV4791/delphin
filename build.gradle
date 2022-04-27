@@ -1,3 +1,5 @@
+import org.openapitools.generator.gradle.plugin.tasks.GenerateTask
+
 plugins {
     id 'org.springframework.boot' version '2.6.6'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
@@ -37,12 +39,12 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
-openApiGenerate {
+task personOpenApiGenerator(type: GenerateTask) {
     generatorName = "spring"
     inputSpec = "$projectDir/src/main/resources/openapi/person/person.yaml"
     outputDir = "$projectDir"
-    apiPackage = "ru.ssv.delphin.api.person"
-    modelPackage = "ru.ssv.delphin.api.person.model"
+    apiPackage = "ru.ssv.delphin.api"
+    modelPackage = "ru.ssv.delphin.api.model.person"
     configOptions = [
             interfaceOnly: "true",
             openApiNullable: "false",
@@ -53,5 +55,25 @@ openApiGenerate {
             models: ""
     ]
 }
-compileJava.dependsOn tasks.openApiGenerate
-processResources.dependsOn tasks.openApiGenerate
+
+task taskOpenApiGenerator(type: GenerateTask) {
+    generatorName = "spring"
+    inputSpec = "$projectDir/src/main/resources/openapi/task/task.yaml"
+    outputDir = "$projectDir"
+    apiPackage = "ru.ssv.delphin.api"
+    modelPackage = "ru.ssv.delphin.api.model.task"
+    configOptions = [
+            interfaceOnly: "true",
+            openApiNullable: "false",
+            skipDefaultInterface: "true"
+    ]
+    globalProperties = [
+            apis: "",
+            models: ""
+    ]
+}
+
+taskOpenApiGenerator.dependsOn personOpenApiGenerator
+
+compileJava.dependsOn taskOpenApiGenerator
+processResources.dependsOn personOpenApiGenerator

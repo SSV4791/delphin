@@ -1,28 +1,27 @@
 package ru.ssv.delphin.controller;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
-import ru.ssv.delphin.api.person.PersonsApi;
-import ru.ssv.delphin.api.person.model.Person;
-import ru.ssv.delphin.api.person.model.PersonResponse;
-import ru.ssv.delphin.api.person.model.PersonsResponse;
-
-import java.util.List;
+import ru.ssv.delphin.api.PersonsApi;
+import ru.ssv.delphin.api.model.person.PersonResponse;
+import ru.ssv.delphin.api.model.person.PersonsResponse;
+import ru.ssv.delphin.api.model.person.TasksResponse;
+import ru.ssv.delphin.exception.OperationNotSupportedException;
 
 @RestController
 public class PersonController implements PersonsApi {
     @Override
     public ResponseEntity<PersonsResponse> getAllPersons() {
-        var person = new Person().id("id").name("name");
-        var personsResponse = new PersonsResponse().persons(List.of(person));
-        return ResponseEntity.status(HttpStatus.OK).body(personsResponse);
+        throw new OperationNotSupportedException("Операция не реализована");
+    }
+
+    @Override
+    public ResponseEntity<TasksResponse> getAllTasksByPersonId(String personId) {
+        throw new OperationNotSupportedException("Операция не реализована");
     }
 
     @Override
     public ResponseEntity<PersonResponse> getById(String personId) {
-        var person = new Person().id(personId).name("name");
-        var personsResponse = new PersonResponse().person(person);
-        return ResponseEntity.status(HttpStatus.OK).body(personsResponse);
+        throw new OperationNotSupportedException("Операция не реализована");
     }
 }

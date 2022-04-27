@@ -1,0 +1,11 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "title": "Профиль задачи",
+  "properties": {
+    "task": {
+      "type": "object",
+      "$ref": "task.json"
+    }
+  }
+}

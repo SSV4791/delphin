@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "title": "Профиль задачи",
+  "properties": {
+    "id": {
+      "type": "string",
+      "title": "Идентификатор задачи"
+    },
+    "name": {
+      "type": "string",
+      "title": "Название задачи"
+    }
+  }
+}
+
