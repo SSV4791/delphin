@@ -5,23 +5,19 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import ru.ssv.delphin.api.model.Person;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 /**
  * Task
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-05-06T14:15:57.242208+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-05-11T15:39:57.723204+03:00[Europe/Moscow]")
 public class Task   {
   @JsonProperty("id")
   private String id;
 
   @JsonProperty("name")
   private String name;
-
-  @JsonProperty("person")
-  private Person person;
 
   public Task id(String id) {
     this.id = id;
@@ -63,27 +59,6 @@ public class Task   {
     this.name = name;
   }
 
-  public Task person(Person person) {
-    this.person = person;
-    return this;
-  }
-
-  /**
-   * Get person
-   * @return person
-  */
-  @ApiModelProperty(value = "")
-
-  @Valid
-
-  public Person getPerson() {
-    return person;
-  }
-
-  public void setPerson(Person person) {
-    this.person = person;
-  }
-
 
   @Override
   public boolean equals(Object o) {
@@ -95,13 +70,12 @@ public class Task   {
     }
     Task task = (Task) o;
     return Objects.equals(this.id, task.id) &&
-        Objects.equals(this.name, task.name) &&
-        Objects.equals(this.person, task.person);
+        Objects.equals(this.name, task.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, person);
+    return Objects.hash(id, name);
   }
 
   @Override
@@ -111,7 +85,6 @@ public class Task   {
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    person: ").append(toIndentedString(person)).append("\n");
     sb.append("}");
     return sb.toString();
   }

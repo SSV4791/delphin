@@ -10,11 +10,6 @@
     "name": {
       "type": "string",
       "title": "Название задачи"
-    },
-    "person": {
-      "type": "object",
-      "title": "Владелец задачи",
-      "$ref": "person.json"
     }
   }
 }
