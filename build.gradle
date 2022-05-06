@@ -39,12 +39,12 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
-task personOpenApiGenerator(type: GenerateTask) {
+openApiGenerate {
     generatorName = "spring"
-    inputSpec = "$projectDir/src/main/resources/openapi/person/person.yaml"
+    inputSpec = "$projectDir/src/main/resources/openapi/openapi.yaml"
     outputDir = "$projectDir"
     apiPackage = "ru.ssv.delphin.api"
-    modelPackage = "ru.ssv.delphin.api.model.person"
+    modelPackage = "ru.ssv.delphin.api.model"
     configOptions = [
             interfaceOnly: "true",
             openApiNullable: "false",
@@ -56,24 +56,5 @@ task personOpenApiGenerator(type: GenerateTask) {
     ]
 }
 
-task taskOpenApiGenerator(type: GenerateTask) {
-    generatorName = "spring"
-    inputSpec = "$projectDir/src/main/resources/openapi/task/task.yaml"
-    outputDir = "$projectDir"
-    apiPackage = "ru.ssv.delphin.api"
-    modelPackage = "ru.ssv.delphin.api.model.task"
-    configOptions = [
-            interfaceOnly: "true",
-            openApiNullable: "false",
-            skipDefaultInterface: "true"
-    ]
-    globalProperties = [
-            apis: "",
-            models: ""
-    ]
-}
-
-taskOpenApiGenerator.dependsOn personOpenApiGenerator
-
-compileJava.dependsOn taskOpenApiGenerator
-processResources.dependsOn personOpenApiGenerator
+compileJava.dependsOn tasks.openApiGenerate
+processResources.dependsOn tasks.openApiGenerate

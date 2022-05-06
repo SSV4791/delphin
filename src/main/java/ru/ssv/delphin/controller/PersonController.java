@@ -3,9 +3,9 @@ package ru.ssv.delphin.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import ru.ssv.delphin.api.PersonsApi;
-import ru.ssv.delphin.api.model.person.PersonResponse;
-import ru.ssv.delphin.api.model.person.PersonsResponse;
-import ru.ssv.delphin.api.model.person.TasksResponse;
+import ru.ssv.delphin.api.model.PersonResponse;
+import ru.ssv.delphin.api.model.PersonsResponse;
+import ru.ssv.delphin.api.model.TasksResponse;
 import ru.ssv.delphin.exception.OperationNotSupportedException;
 
 @RestController
