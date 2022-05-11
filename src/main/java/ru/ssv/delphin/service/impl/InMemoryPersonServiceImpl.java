@@ -1,6 +1,7 @@
 package ru.ssv.delphin.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import ru.ssv.delphin.api.model.Person;
 import ru.ssv.delphin.api.model.PersonResponse;
 import ru.ssv.delphin.api.model.PersonsResponse;
 import ru.ssv.delphin.api.model.TasksResponse;
@@ -11,6 +12,12 @@ public class InMemoryPersonServiceImpl implements PersonService {
     private final InMemoryBaseServiceImpl baseService;
 
     @Override
+    public PersonResponse savePerson(Person person) {
+        return new PersonResponse()
+                .person(baseService.putPerson(person));
+    }
+
+    @Override
     public PersonsResponse getAllPersons() {
         return new PersonsResponse()
                 .persons(baseService.getAllPersons());
@@ -19,6 +26,7 @@ public class InMemoryPersonServiceImpl implements PersonService {
     @Override
     public TasksResponse getAllTasksByPersonId(String personId) {
         return new TasksResponse()
+                .personId(personId)
                 .tasks(baseService.getAllTasksByPersonId(personId));
     }
 

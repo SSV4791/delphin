@@ -6,7 +6,7 @@ import ru.ssv.delphin.api.model.Task;
 
 import java.util.List;
 
-public abstract class AbstractBaseServiceTest {
+public abstract class AbstractServiceTest {
     protected Task testedTask;
     protected Person testedPerson;
 

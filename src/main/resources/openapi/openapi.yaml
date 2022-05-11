@@ -30,6 +30,34 @@ paths:
         403:
           description: Forbidden
 
+    post:
+      tags:
+        - Post person
+      description: Добавление нового пользователя
+      operationId: save-person
+      requestBody:
+        description: Пользователь
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: 'model/person.json'
+      responses:
+        201:
+          description: Успешный ответ
+          content:
+            application/json:
+              schema:
+                $ref: 'model/person_response.json'
+        404:
+          description: Not Found
+        400:
+          description: Bad Request
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+
   /persons/{personId}:
     get:
       tags:

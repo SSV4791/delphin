@@ -11,7 +11,7 @@ import javax.validation.constraints.*;
 /**
  * Task
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-05-11T15:39:57.723204+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-05-11T17:45:19.403803+03:00[Europe/Moscow]")
 public class Task   {
   @JsonProperty("id")
   private String id;

@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import ru.ssv.delphin.exception.EntityNotFoundedException;
 import ru.ssv.delphin.exception.OperationNotSupportedException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.NOT_IMPLEMENTED;
 
 @ControllerAdvice
@@ -21,6 +23,12 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<ErrorResponse> handleOperationNotSupportedException(OperationNotSupportedException ex,
                                                                           HttpServletRequest httpRequest) {
         return buildErrorResponseEntity(NOT_IMPLEMENTED, ex, httpRequest);
+    }
+
+    @ExceptionHandler(EntityNotFoundedException.class)
+    protected ResponseEntity<ErrorResponse> handleEntityNotFoundedException(OperationNotSupportedException ex,
+                                                                                 HttpServletRequest httpRequest) {
+        return buildErrorResponseEntity(NOT_FOUND, ex, httpRequest);
     }
 
     private ResponseEntity<ErrorResponse> buildErrorResponseEntity(HttpStatus status,

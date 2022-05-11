@@ -9,7 +9,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class InMemoryBaseServiceImplTest extends AbstractBaseServiceTest{
+class InMemoryServiceImplTest extends AbstractServiceTest {
     private InMemoryBaseServiceImpl baseService;
 
     @BeforeEach

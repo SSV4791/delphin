@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-class InMemoryPersonServiceImplTest extends AbstractBaseServiceTest {
+class InMemoryPersonServiceImplTest extends AbstractServiceTest {
     private InMemoryPersonServiceImpl personService;
     private InMemoryBaseServiceImpl baseService;
 
@@ -37,6 +37,8 @@ class InMemoryPersonServiceImplTest extends AbstractBaseServiceTest {
         when(baseService.getAllTasksByPersonId(personId))
                 .thenReturn(expectedTasks);
         var actualTasksResponse = personService.getAllTasksByPersonId(personId);
+        assertThat(actualTasksResponse.getPersonId())
+                .isEqualTo(personId);
         assertThat(actualTasksResponse.getTasks())
                 .isEqualTo(expectedTasks);
     }
