@@ -10,7 +10,7 @@ import ru.ssv.delphin.api.model.PersonsResponse;
 import ru.ssv.delphin.api.model.TasksResponse;
 import ru.ssv.delphin.aspect.Validation;
 import ru.ssv.delphin.service.PersonService;
-import ru.ssv.delphin.validator.impl.CreatedPersonValidator;
+import ru.ssv.delphin.validator.impl.CreatedPersonValidatorImpl;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
@@ -42,7 +42,7 @@ public class PersonController implements PersonsApi {
     }
 
     @Override
-    public ResponseEntity<PersonResponse> savePerson(@Validation(type = CreatedPersonValidator.class) Person person) {
+    public ResponseEntity<PersonResponse> savePerson(@Validation(type = CreatedPersonValidatorImpl.class) Person person) {
         return ResponseEntity
                 .status(CREATED)
                 .body(personService.savePerson(person));

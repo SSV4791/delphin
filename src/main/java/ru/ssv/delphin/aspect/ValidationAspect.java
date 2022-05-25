@@ -9,7 +9,6 @@ import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
-import org.springframework.util.CollectionUtils;
 import ru.ssv.delphin.exception.ModelValidationException;
 import ru.ssv.delphin.validator.Validator;
 
@@ -37,10 +36,9 @@ public class ValidationAspect {
                     continue;
                 }
                 var type = ((Validation) annotation).type();
-                Validator bean = getBean(type, type.getName());
+                Validator bean = getBean(type);
                 var errors = new ArrayList<String>();
-                bean.validate(args[argIndex], errors);
-                if (CollectionUtils.isEmpty(errors)) {
+                if (bean.validate(args[argIndex], errors)) {
                     return;
                 }
                 throw new ModelValidationException(errors);
@@ -56,5 +54,9 @@ public class ValidationAspect {
             beanFactory.registerBeanDefinition(beanName, beanDefinitionBuilder.getBeanDefinition());
         }
         return (T) applicationContext.getBean(beanName);
+    }
+
+    private <T> T getBean(Class<? extends T> beanClass) {
+        return (T) applicationContext.getBean(beanClass);
     }
 }

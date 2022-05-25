@@ -10,7 +10,7 @@ import java.util.List;
 import static java.lang.String.format;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 
-public class CreatedPersonValidator implements Validator<Person> {
+public class CreatedPersonValidatorImpl implements Validator<Person> {
     @Override
     public boolean validate(Person entity, List<String> errorMessages) {
         var localErrors = new ArrayList<String>();
