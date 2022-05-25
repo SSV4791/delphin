@@ -12,4 +12,6 @@ import ru.ssv.delphin.api.model.TaskCreate;
 public interface TaskMapper {
     @Mapping(target = "id", expression = "java(java.util.UUID.randomUUID().toString())")
     Task toTask(TaskCreate createdTask);
+
+    TaskCreate toTaskCreate(Task task);
 }

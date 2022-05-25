@@ -15,4 +15,6 @@ import ru.ssv.delphin.api.model.PersonCreate;
 public interface PersonMapper {
     @Mapping(target = "id", expression = "java(java.util.UUID.randomUUID().toString())")
     Person toPerson(PersonCreate createdPerson);
+
+    PersonCreate toPersonCreate(Person person);
 }

@@ -37,6 +37,7 @@ dependencies {
     testImplementation 'io.rest-assured:rest-assured:5.0.1'
     testImplementation 'io.rest-assured:json-path:5.0.1'
     testImplementation 'io.rest-assured:xml-path:5.0.1'
+    testImplementation group: 'uk.co.jemos.podam', name: 'podam', version: '7.2.9.RELEASE'
 }
 
 tasks.named('test') {
