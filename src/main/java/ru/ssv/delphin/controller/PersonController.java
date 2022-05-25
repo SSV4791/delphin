@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import ru.ssv.delphin.api.PersonsApi;
 import ru.ssv.delphin.api.model.Person;
+import ru.ssv.delphin.api.model.PersonCreate;
 import ru.ssv.delphin.api.model.PersonResponse;
 import ru.ssv.delphin.api.model.PersonsResponse;
 import ru.ssv.delphin.api.model.TasksResponse;
@@ -42,7 +43,7 @@ public class PersonController implements PersonsApi {
     }
 
     @Override
-    public ResponseEntity<PersonResponse> savePerson(@Validation(type = CreatedPersonValidatorImpl.class) Person person) {
+    public ResponseEntity<PersonResponse> savePerson(@Validation(type = CreatedPersonValidatorImpl.class) PersonCreate person) {
         return ResponseEntity
                 .status(CREATED)
                 .body(personService.savePerson(person));

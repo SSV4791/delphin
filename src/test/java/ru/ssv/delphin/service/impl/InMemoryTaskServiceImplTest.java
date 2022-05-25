@@ -23,9 +23,9 @@ class InMemoryTaskServiceImplTest extends AbstractServiceTest {
     void getTaskById() {
         var taskId = UUID.randomUUID().toString();
         when(baseService.getTaskById(taskId))
-                .thenReturn(testedTask);
+                .thenReturn(expectedTask);
         var actualTaskResponse = taskService.getTaskById(taskId);
         assertThat(actualTaskResponse.getTask())
-                .isEqualTo(testedTask);
+                .isEqualTo(expectedTask);
     }
 }

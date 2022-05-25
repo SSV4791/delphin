@@ -1,7 +1,7 @@
 package ru.ssv.delphin.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import ru.ssv.delphin.api.model.Person;
+import ru.ssv.delphin.api.model.PersonCreate;
 import ru.ssv.delphin.api.model.PersonResponse;
 import ru.ssv.delphin.api.model.PersonsResponse;
 import ru.ssv.delphin.api.model.TasksResponse;
@@ -12,7 +12,7 @@ public class InMemoryPersonServiceImpl implements PersonService {
     private final InMemoryBaseServiceImpl baseService;
 
     @Override
-    public PersonResponse savePerson(Person person) {
+    public PersonResponse savePerson(PersonCreate person) {
         return new PersonResponse()
                 .person(baseService.putPerson(person));
     }

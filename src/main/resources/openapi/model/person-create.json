@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "title": "Создание профиля пользователя",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Имя пользователя"
+    },
+    "tasks": {
+      "type": "array",
+      "title": "Список задач пользователя",
+      "items": {
+        "$ref": "task-create.json"
+      }
+    }
+  }
+}
+

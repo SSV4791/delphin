@@ -41,7 +41,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: 'model/person.json'
+              $ref: 'model/person-create.json'
       responses:
         201:
           description: Успешный ответ

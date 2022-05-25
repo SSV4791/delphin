@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "title": "Создание профиля задачи",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Название задачи"
+    }
+  }
+}
+

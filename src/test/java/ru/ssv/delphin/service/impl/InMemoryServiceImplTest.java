@@ -4,6 +4,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.ssv.delphin.api.model.Person;
 import ru.ssv.delphin.api.model.Task;
+import ru.ssv.delphin.mapper.PersonMapper;
+import ru.ssv.delphin.mapper.PersonMapperImpl;
+import ru.ssv.delphin.mapper.TaskMapper;
+import ru.ssv.delphin.mapper.TaskMapperImpl;
 
 import java.util.List;
 
@@ -14,21 +18,23 @@ class InMemoryServiceImplTest extends AbstractServiceTest {
 
     @BeforeEach
     void beforeEach() {
-        baseService = new InMemoryBaseServiceImpl();
+        TaskMapper taskMapper = new TaskMapperImpl();
+        PersonMapper personMapper = new PersonMapperImpl(taskMapper);
+        baseService = new InMemoryBaseServiceImpl(personMapper, taskMapper);
     }
 
     @Test
     void whenPutPerson_thenGetPerson() {
-        var actualPerson = baseService.putPerson(testedPerson);
+        var actualPerson = baseService.putPerson(createdPerson);
         assertThat(actualPerson)
                 .usingRecursiveComparison()
-                .ignoringFields("id")
-                .isEqualTo(testedPerson);
+                .ignoringFields("id", "tasks.id")
+                .isEqualTo(expectedPerson);
     }
 
     @Test
     void getAllPersons() {
-        var actualPerson = baseService.putPerson(testedPerson);
+        var actualPerson = baseService.putPerson(createdPerson);
         List<Person> actualPersons = baseService.getAllPersons();
         assertThat(actualPersons.contains(actualPerson))
                 .isTrue();
@@ -36,29 +42,29 @@ class InMemoryServiceImplTest extends AbstractServiceTest {
 
     @Test
     void getAllTasksByPersonId() {
-        var actualPerson = baseService.putPerson(testedPerson);
+        var actualPerson = baseService.putPerson(createdPerson);
         List<Task> actualTasks = baseService.getAllTasksByPersonId(actualPerson.getId());
-        assertThat(actualTasks.containsAll(testedPerson.getTasks()))
+        assertThat(actualTasks.containsAll(actualPerson.getTasks()))
                 .isTrue();
     }
 
     @Test
     void getPersonById() {
-        var settingPerson = baseService.putPerson(testedPerson);
+        var settingPerson = baseService.putPerson(createdPerson);
         var actualPerson = baseService.getPersonById(settingPerson.getId());
         assertThat(actualPerson)
                 .usingRecursiveComparison()
-                .ignoringFields("id")
-                .isEqualTo(testedPerson);
+                .ignoringFields("id", "tasks.id")
+                .isEqualTo(expectedPerson);
     }
 
     @Test
     void getTaskById() {
-        var settingPerson = baseService.putPerson(testedPerson);
+        var settingPerson = baseService.putPerson(createdPerson);
         var actualTask = baseService.getTaskById(settingPerson.getTasks().get(0).getId());
         assertThat(actualTask)
                 .usingRecursiveComparison()
                 .ignoringFields("id")
-                .isEqualTo(testedTask);
+                .isEqualTo(expectedTask);
     }
 }

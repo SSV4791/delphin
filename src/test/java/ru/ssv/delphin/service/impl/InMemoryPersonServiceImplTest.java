@@ -22,7 +22,7 @@ class InMemoryPersonServiceImplTest extends AbstractServiceTest {
 
     @Test
     void getAllPersons() {
-        var expectedPersons = List.of(testedPerson);
+        var expectedPersons = List.of(expectedPerson);
         when(baseService.getAllPersons())
                 .thenReturn(expectedPersons);
         var actualPersonsResponse = personService.getAllPersons();
@@ -33,7 +33,7 @@ class InMemoryPersonServiceImplTest extends AbstractServiceTest {
     @Test
     void getAllTasksByPersonId() {
         var personId = UUID.randomUUID().toString();
-        var expectedTasks = List.of(testedTask);
+        var expectedTasks = List.of(expectedTask);
         when(baseService.getAllTasksByPersonId(personId))
                 .thenReturn(expectedTasks);
         var actualTasksResponse = personService.getAllTasksByPersonId(personId);
@@ -47,9 +47,9 @@ class InMemoryPersonServiceImplTest extends AbstractServiceTest {
     void getById() {
         var personId = UUID.randomUUID().toString();
         when(baseService.getPersonById(personId))
-                .thenReturn(testedPerson);
+                .thenReturn(expectedPerson);
         var actualPersonResponse = personService.getById(personId);
         assertThat(actualPersonResponse.getPerson())
-                .isEqualTo(testedPerson);
+                .isEqualTo(expectedPerson);
     }
 }
