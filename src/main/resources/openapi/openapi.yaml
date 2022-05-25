@@ -11,7 +11,7 @@ paths:
   /persons:
     get:
       tags:
-        - Persons
+        - Person
       description: Получение списка пользователей
       operationId: get-all-persons
       responses:
@@ -32,7 +32,7 @@ paths:
 
     post:
       tags:
-        - Post person
+        - Person
       description: Добавление нового пользователя
       operationId: save-person
       requestBody:
@@ -90,7 +90,7 @@ paths:
   /persons/{personId}/tasks:
     get:
       tags:
-        - All Tasks by PersonId
+        - Person
       description: Получение списка задач для пользователя
       operationId: get-all-tasks-by-person-id
       parameters:
