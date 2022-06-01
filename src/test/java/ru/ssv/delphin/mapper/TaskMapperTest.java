@@ -1,32 +1,31 @@
 package ru.ssv.delphin.mapper;
 
 import org.junit.jupiter.api.Test;
-import ru.ssv.delphin.api.model.Task;
-import ru.ssv.delphin.api.model.TaskCreate;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import ru.ssv.delphin.db.entity.TaskEntity;
+import uk.co.jemos.podam.api.PodamFactory;
+import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class TaskMapperTest extends BaseMapperTest{
-    private final TaskMapper mapper = new TaskMapperImpl();
+@ExtendWith(SpringExtension.class)
+class TaskMapperTest {
+
+    private static final PodamFactory podamFactory = new PodamFactoryImpl();
+
+    private static final TaskMapper mapper = new TaskMapperImpl();
 
     @Test
-    void toTask() {
-        var createdTask = podamFactory.manufacturePojo(TaskCreate.class);
-        var task = mapper.toTask(createdTask);
-        assertThat(createdTask)
-                .usingRecursiveComparison()
-                .ignoringCollectionOrder()
-                .isEqualTo(mapper.toTaskCreate(task));
-    }
-
-    @Test
-    void toTaskCreate() {
-        var task = podamFactory.manufacturePojo(Task.class);
-        var createdTask = mapper.toTaskCreate(task);
+    void mapTaskEntityToTask() {
+        var taskEntity = podamFactory.manufacturePojo(TaskEntity.class);
+        var task = mapper.toTask(taskEntity);
         assertThat(task)
-                .usingRecursiveComparison()
-                .ignoringCollectionOrder()
-                .ignoringFields("id")
-                .isEqualTo(mapper.toTask(createdTask));
+                .isNotNull();
+        assertThat(task.getId())
+                .isEqualTo(taskEntity.getId().toString());
+        assertThat(task.getName())
+                .isEqualTo(taskEntity.getName());
     }
+
 }

@@ -2,26 +2,25 @@ package ru.ssv.delphin.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import ru.ssv.delphin.db.repository.PersonRepository;
+import ru.ssv.delphin.db.repository.TaskRepository;
 import ru.ssv.delphin.mapper.PersonMapper;
 import ru.ssv.delphin.mapper.TaskMapper;
-import ru.ssv.delphin.service.impl.InMemoryBaseServiceImpl;
-import ru.ssv.delphin.service.impl.InMemoryPersonServiceImpl;
-import ru.ssv.delphin.service.impl.InMemoryTaskServiceImpl;
+import ru.ssv.delphin.service.PersonService;
+import ru.ssv.delphin.service.TaskService;
+import ru.ssv.delphin.service.impl.PersonServiceImpl;
+import ru.ssv.delphin.service.impl.TaskServiceImpl;
 
 @Configuration
 public class AppConfiguration {
+
     @Bean
-    public InMemoryBaseServiceImpl inMemoryBaseService(PersonMapper personMapper, TaskMapper taskMapper) {
-        return new InMemoryBaseServiceImpl(personMapper, taskMapper);
+    PersonService personService(PersonRepository personRepository, PersonMapper personMapper) {
+        return new PersonServiceImpl(personRepository, personMapper);
     }
 
     @Bean
-    public InMemoryPersonServiceImpl inMemoryPersonService(InMemoryBaseServiceImpl inMemoryBaseService) {
-        return new InMemoryPersonServiceImpl(inMemoryBaseService);
-    }
-
-    @Bean
-    public InMemoryTaskServiceImpl inMemoryTaskService(InMemoryBaseServiceImpl inMemoryBaseService) {
-        return new InMemoryTaskServiceImpl(inMemoryBaseService);
+    TaskService taskService(TaskRepository taskRepository, TaskMapper taskMapper) {
+        return new TaskServiceImpl(taskRepository, taskMapper);
     }
 }

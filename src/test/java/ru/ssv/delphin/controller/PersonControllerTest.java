@@ -14,76 +14,56 @@ import static org.springframework.http.HttpStatus.OK;
 class PersonControllerTest extends BaseControllerTest {
 
     @Test
-    void getAllPersons() {
-        var savedPerson = given()
-                .baseUri(BASE_URI)
-                .contentType(ContentType.JSON)
-                .when()
-                .body(testedPerson)
-                .post("/persons")
-                .then()
-                .statusCode(CREATED.value())
-                .extract().as(PersonResponse.class)
-                .getPerson();
+    void getAll() {
+        var testedPerson = insertTestedPerson();
         var response = given()
                 .baseUri(BASE_URI)
+                .port(port)
                 .when()
                 .get("/persons")
                 .then()
                 .statusCode(OK.value())
                 .extract().as(PersonsResponse.class);
-        assertThat(response.getPersons().contains(savedPerson))
+        assertThat(response.getPersons().contains(testedPerson))
                 .isTrue();
+        deletePersonById(testedPerson.getId());
     }
 
     @Test
     void getById() {
-        var savedPerson = given()
+        var testedPerson = insertTestedPerson();;
+        var personResponse = given()
                 .baseUri(BASE_URI)
-                .contentType(ContentType.JSON)
+                .port(port)
                 .when()
-                .body(testedPerson)
-                .post("/persons")
-                .then()
-                .statusCode(CREATED.value())
-                .extract().as(PersonResponse.class)
-                .getPerson();
-        var response = given()
-                .baseUri(BASE_URI)
-                .when()
-                .get("/persons/{id}", savedPerson.getId())
+                .get("/persons/{id}", testedPerson.getId())
                 .then()
                 .extract().as(PersonResponse.class);
-        assertThat(response.getPerson())
-                .isEqualTo(savedPerson);
+        assertThat(personResponse.getPerson())
+                .isEqualTo(testedPerson);
+        deletePersonById(testedPerson.getId());
     }
 
     @Test
     void getAllTasksByPersonId() {
-        var savedPerson = given()
-                .baseUri(BASE_URI)
-                .contentType(ContentType.JSON)
-                .when()
-                .body(testedPerson)
-                .post("/persons")
-                .then()
-                .statusCode(CREATED.value())
-                .extract().as(PersonResponse.class)
-                .getPerson();
+        var testedPerson = insertTestedPerson();
         var response = given()
                 .baseUri(BASE_URI)
+                .port(port)
                 .when()
-                .get("/persons/{id}/tasks", savedPerson.getId())
+                .get("/persons/{id}/tasks", testedPerson.getId())
                 .then()
                 .extract().as(TasksResponse.class);
-        assertThat(response.getTasks().containsAll(savedPerson.getTasks()))
+        assertThat(response.getTasks().containsAll(testedPerson.getTasks()))
                 .isTrue();
+        deletePersonById(testedPerson.getId());
     }
 
     @Test
-    void savePerson() {
-        var response = given()
+    void create() {
+        var createdPersonResponse = given()
                 .baseUri(BASE_URI)
+                .port(port)
                 .contentType(ContentType.JSON)
                 .when()
                 .body(testedPerson)
@@ -91,9 +71,10 @@ class PersonControllerTest extends BaseControllerTest {
                 .then()
                 .statusCode(CREATED.value())
                 .extract().as(PersonResponse.class);
-        assertThat(response.getPerson())
+        assertThat(createdPersonResponse.getPerson())
                 .usingRecursiveComparison()
                 .ignoringFields("id", "tasks")
                 .isEqualTo(testedPerson);
+        deletePersonById(createdPersonResponse.getPerson().getId());
     }
 }

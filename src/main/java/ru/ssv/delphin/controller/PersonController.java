@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import ru.ssv.delphin.api.PersonsApi;
-import ru.ssv.delphin.api.model.Person;
 import ru.ssv.delphin.api.model.PersonCreate;
 import ru.ssv.delphin.api.model.PersonResponse;
 import ru.ssv.delphin.api.model.PersonsResponse;
@@ -22,10 +21,10 @@ public class PersonController implements PersonsApi {
     private final PersonService personService;
 
     @Override
-    public ResponseEntity<PersonsResponse> getAllPersons() {
+    public ResponseEntity<PersonsResponse> getAll() {
         return ResponseEntity
                 .status(OK)
-                .body(personService.getAllPersons());
+                .body(personService.getAll());
     }
 
     @Override
@@ -43,9 +42,15 @@ public class PersonController implements PersonsApi {
     }
 
     @Override
-    public ResponseEntity<PersonResponse> savePerson(@Validation(type = CreatedPersonValidatorImpl.class) PersonCreate person) {
+    public ResponseEntity<PersonResponse> create(@Validation(type = CreatedPersonValidatorImpl.class) PersonCreate person) {
         return ResponseEntity
                 .status(CREATED)
-                .body(personService.savePerson(person));
+                .body(personService.create(person));
+    }
+
+    @Override
+    public ResponseEntity<Void> delete(String personId) {
+        personService.delete(personId);
+        return ResponseEntity.status(OK).build();
     }
 }

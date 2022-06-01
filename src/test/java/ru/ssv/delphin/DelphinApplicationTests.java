@@ -8,6 +8,7 @@ class DelphinApplicationTests {
 
     @Test
     void contextLoads() {
+        System.out.println("Загрузка контента");
     }
 
 }

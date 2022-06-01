@@ -6,8 +6,9 @@ import ru.ssv.delphin.api.model.PersonsResponse;
 import ru.ssv.delphin.api.model.TasksResponse;
 
 public interface PersonService {
-    PersonResponse savePerson(PersonCreate person);
-    PersonsResponse getAllPersons();
+    PersonResponse create(PersonCreate person);
+    PersonsResponse getAll();
     TasksResponse getAllTasksByPersonId(String personId);
     PersonResponse getById(String personId);
+    void delete(String personId);
 }

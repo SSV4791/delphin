@@ -1,0 +1,14 @@
+server:
+  port: 8088
+
+spring:
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/db.changelog-master.xml
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/content?currentSchema=delphin-data
+    username: content
+    password: content
+    hikari:
+      schema: delphin-data
